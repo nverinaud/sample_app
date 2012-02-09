@@ -1,18 +1,23 @@
+$full-width: 710px;
+$background-color: #cff;
+$link-color: #09c;
+$visited-link-color: #069;
+
 .container {
-  width: 710px;
+  width: $full-width;
 }
 
 body {
-  background: #cff;
+  background: $background-color;
 }
 
 header {
   padding-top: 20px;
-}
 
-header img {
-  padding: 1em;
-  background: white;
+  img {
+    padding: 1em;
+    background: white;
+  }
 }
 
 section {
@@ -20,26 +25,26 @@ section {
   font-size: 120%;
   padding: 20px;
   background: white;
-}
 
-section h1 {
-  font-size: 200%;
+  h1 {
+    font-size: 200%;
+  }
 }
 
 /* Links */
 
 a {
-  color: #09c;
+  color: $link-color;
   text-decoration: none;
-}
 
-a:hover {
-  color: #069;
-  text-decoration: underline;
-}
+  &:hover {
+    color: $visited-link-color;
+    text-decoration: underline;
+  }
 
-a:visited {
-  color: #069;
+  &:visited {
+    color: $visited-link-color;
+  }
 }
 
 /* Navigation */
@@ -49,30 +54,30 @@ nav {
   background-color: white;
   padding: 0 0.7em;
   white-space: nowrap;
-}
 
-nav ul {
-  margin: 0;
-  padding: 0;
-}
+  ul {
+    margin: 0;
+    padding: 0;
 
-nav ul li {
-  list-style-type: none;
-  display: inline-block;
-  padding: 0.2em 0;
-}
+    li {
+      list-style-type: none;
+      display: inline-block;
+      padding: 0.2em 0;
 
-nav ul li a {
-  padding: 0 5px;
-  font-weight: bold;
-}
+      a {
+        padding: 0 5px;
+        font-weight: bold;
 
-nav ul li a:visited {
-  color: #09c;
-}
+        &:visited {
+          color: $link-color;
+        }
 
-nav ul li a:hover {
-  text-decoration: underline;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
 }
 
 /* Sign up button */
@@ -101,11 +106,11 @@ a.signup_button {
 footer {
   text-align: center;
   margin-top: 10px;
-  width: 710px;
+  width: $full-width;
   margin-left: auto;
   margin-right: auto;
-}
 
-footer nav {
-  float: none;
+  nav {
+    float: none;
+  }
 }

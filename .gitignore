@@ -23,3 +23,7 @@ doc/
 *~
 .project
 .DS_Store
+*.iml
+*.ipr
+*.iws
+.idea/

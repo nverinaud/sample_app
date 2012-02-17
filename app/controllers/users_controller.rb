@@ -1,5 +1,13 @@
 class UsersController < ApplicationController
 
+  before_filter :signed_in_user, only: [:edit, :update]
+
+private
+  def signed_in_user
+    redirect_to signin_path, notice: "Please sign in." unless signed_in?
+  end
+
+public
   # GET /users/:id
   def show
     @user = User.find(params[:id])

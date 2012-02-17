@@ -22,7 +22,6 @@ describe "User pages" do
 
 
   describe "signup" do
-
     before { visit signup_path }
 
     describe "with invalid information" do
@@ -54,7 +53,25 @@ describe "User pages" do
       it { should have_title('Sign Up') }
       it { should have_content(error) }
     end
+  end
 
+
+  describe "edit" do
+    let(:user) { FactoryGirl.create(:user) }
+    before { visit edit_user_path(user) }
+
+    describe "page" do
+      it { should have_title("Edit user") }
+      it { should have_h1("Edit user") }
+      it { should have_link('change', href: 'http://gravatar.com/emails') }
+    end
+
+    describe "with invalid information" do
+      let(:error) { '1 error prohibited this user from being saved' }
+      before { click_button "Update" }
+
+      it { should have_content(error) }
+    end
   end
   
 end

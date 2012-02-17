@@ -1,5 +1,9 @@
 module SessionsHelper
 
+  ###
+  # Sign In
+  #
+
   # Sign In Helper method
   #
   # Store user's remember token into a cookie to manage
@@ -20,6 +24,17 @@ module SessionsHelper
   end
 
 
+  ###
+  # Sign Out
+  #
+
+  def sign_out
+    cookies.delete(:remember_token)
+  end
+
+  ###
+  # Managing the session
+  #
   def current_user=(user)
     @current_user = user
   end

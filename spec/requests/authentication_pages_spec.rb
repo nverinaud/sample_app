@@ -35,9 +35,12 @@ describe "Authentication" do
       end
 
       it { should have_title(user.name) }
-      it { should have_link('Profile', href: user_path(user)) }
+
+      it { should have_link('Users',    href: users_path) }
+      it { should have_link('Profile',  href: user_path(user)) }
       it { should have_link('Settings', href: edit_user_path(user)) }
       it { should have_link('Sign out', href: signout_path) }
+
       it { should_not have_link('Sign in', href: signin_path) }
 
       describe "followed by sign out" do
@@ -53,7 +56,6 @@ describe "Authentication" do
       let(:user) { Factory(:user) }
 
       describe "in the Users controller" do
-
         describe "visiting the edit page" do
           before { visit edit_user_path(user) }
           it { should have_title('Sign in') }
@@ -63,6 +65,11 @@ describe "Authentication" do
           before { put user_path(user) }
           specify { response.should redirect_to(signin_path) }
         end
+      end
+
+      describe "visiting user index" do
+        before { visit users_path }
+        it { should have_title('Sign in') }
       end
     end
 

@@ -65,7 +65,7 @@ module SessionsHelper
     end
 
     def use_session?
-      true
+      Rails.env.production? # Session in production only
     end
 
 end

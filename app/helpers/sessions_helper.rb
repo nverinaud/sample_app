@@ -14,8 +14,12 @@ module SessionsHelper
   # @return
   #     Assign the instance variable current_user which is the current logged in user
   def sign_in(user)
-    cookies.permanent[:remember_token] = user.remember_token
-    current_user = user
+    if use_session?
+      session[:remember_token] = user.remember_token
+    else
+      cookies.permanent[:remember_token] = user.remember_token
+    end
+    current_user = user # current_user use here is a setter method call to self.current_user=()
   end
 
 
@@ -29,7 +33,11 @@ module SessionsHelper
   #
 
   def sign_out
-    cookies.delete(:remember_token)
+    if use_session?
+      session[:remember_token] = nil
+    else
+      cookies.delete(:remember_token)
+    end
   end
 
   ###
@@ -48,8 +56,16 @@ module SessionsHelper
   private
 
     def user_from_remember_token
-      remember_token = cookies[:remember_token]
+      if use_session?
+        remember_token = session[:remember_token]
+      else
+        remember_token = cookies[:remember_token]
+      end
       User.find_by_remember_token(remember_token) unless remember_token.nil?
+    end
+
+    def use_session?
+      true
     end
 
 end

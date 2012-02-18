@@ -116,7 +116,14 @@ footer {
 }
 
 
-/* User show page */
+/* User pages */
+
+ul.users {
+  margin-top: 1em;
+  li {
+    list-style: none;
+  }
+}
 
 table.profile {
   width: 100%;

@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 
   before_filter :signed_in_user, only: [:index, :edit, :update]
   before_filter :correct_user, only: [:edit, :update]
+  before_filter :admin_user, only: :destroy
 
   # GET /users
   def index
@@ -46,6 +47,14 @@ class UsersController < ApplicationController
     end
   end
 
+  # DELETE /users/:id
+  def destroy
+    destroyedUser = User.find(params[:id])
+    destroyedUser.destroy
+    flash[:success] = "User \"#{destroyedUser.name}\" killed !"
+    redirect_to users_path
+  end
+
 
 private
 
@@ -59,6 +68,10 @@ private
   def correct_user
     @user = User.find(params[:id])
     redirect_to root_path unless current_user?(@user)
+  end
+
+  def admin_user
+    redirect_to root_path unless current_user.admin?
   end
 
 end

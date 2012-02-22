@@ -50,9 +50,9 @@ class UsersController < ApplicationController
 
   # DELETE /users/:id
   def destroy
-    destroyedUser = User.find(params[:id])
-    destroyedUser.destroy
-    flash[:success] = "User \"#{destroyedUser.name}\" killed !"
+    # @destroyedUser created by admin_user before_filter callback
+    @destroyedUser.destroy
+    flash[:success] = "User \"#{@destroyedUser.name}\" killed !"
     redirect_to users_path
   end
 
@@ -78,7 +78,14 @@ private
   end
 
   def admin_user
-    redirect_to root_path unless current_user.admin?
+    if current_user.admin?
+      @destroyedUser = User.find(params[:id])
+      if @destroyedUser == current_user
+        redirect_to root_path
+      end
+    else
+      redirect_to root_path
+    end
   end
 
 end

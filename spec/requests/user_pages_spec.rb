@@ -144,5 +144,15 @@ describe "User pages" do
       specify { user.reload.email.should == new_email }
     end
   end
+
+
+  describe "delete" do
+    let(:admin) { FactoryGirl.create(:admin) }
+    before { sign_in admin }
+
+    specify "himself for an admin is not allowed" do
+      expect { Capybara.current_session.driver.delete user_path(admin) }.not_to change(User, :count).by(-1)
+    end
+  end
   
 end

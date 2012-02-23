@@ -18,6 +18,10 @@ class User < ActiveRecord::Base
 	attr_accessible :name, :email, :password, :password_confirmation
 
 
+  # Relationships
+  has_many :microposts, dependent: :destroy
+
+
   # Callbacks
   before_save :create_remember_token
 

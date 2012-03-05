@@ -18,6 +18,10 @@ class User < ActiveRecord::Base
 	attr_accessible :name, :email, :password, :password_confirmation
 
 
+  # Relationships
+  has_many :microposts, dependent: :destroy
+
+
   # Callbacks
   before_save :create_remember_token
 
@@ -41,11 +45,16 @@ class User < ActiveRecord::Base
                 length: { minimum: 6 }
 
 
+  # Feed
+  def feed
+    return Micropost.where("user_id = ?", id)
+  end
+
   # Remember Token
   private
 
     def create_remember_token
-      self.remember_token = SecureRandom.urlsafe_base64
+      self.remember_token ||= SecureRandom.urlsafe_base64
     end
 
 end

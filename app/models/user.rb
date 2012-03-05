@@ -45,6 +45,11 @@ class User < ActiveRecord::Base
                 length: { minimum: 6 }
 
 
+  # Feed
+  def feed
+    return Micropost.where("user_id = ?", id)
+  end
+
   # Remember Token
   private
 

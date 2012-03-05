@@ -19,6 +19,7 @@
         <% if Rails.env.development? %>
         <%= debug(params) %>
         <pre><%= "REST: #{request.method} #{request.fullpath}" %></pre>
+        <%= debug(session) %>
         <% end %>
     </div>
   </body>

@@ -16,11 +16,12 @@
           <%= yield %>
       </section>
       <%= render 'layouts/footer' %>
-        <% if Rails.env.development? %>
+      
+      <% if Rails.env.development? %>
         <%= debug(params) %>
         <pre><%= "REST: #{request.method} #{request.fullpath}" %></pre>
         <%= debug(session) %>
-        <% end %>
+      <% end %>
     </div>
   </body>
 </html>

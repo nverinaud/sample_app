@@ -1,7 +1,7 @@
 
 $(document).ready(function(){
 
-	$("textarea#micropost-text-area").bind('textchange', function(){
+	$("textarea#micropost_content").bind('textchange', function(){
 		var content = $(this).val();
 		var charsLeft = 140-parseInt(content.length);
 		countSpan = $("span#micropost-chars-count");

@@ -69,7 +69,7 @@ describe "User pages" do
     describe "single micropost" do
       before { visit user_path(user) }
 
-      it { should have_content('Micropost 1') }
+      it { should have_content('1 Micropost') }
     end
 
     describe "multiple microposts" do
@@ -95,6 +95,33 @@ describe "User pages" do
       end
 
       it { should_not have_link('delete') }
+    end
+  end
+
+
+  describe "following/followers" do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:other_user) { FactoryGirl.create(:user) }
+    before { user.follow!(other_user) }
+
+    describe "followed users" do
+      before do
+        sign_in user
+        visit following_user_path(user)
+      end
+
+      it { should have_selector('a', href: user_path(other_user),
+                                     text: other_user.name) }
+    end
+
+    describe "followers" do
+      before do
+        sign_in other_user
+        visit followers_user_path(other_user)
+      end
+
+      it { should have_selector('a', href: user_path(user),
+                                     text: user.name) }
     end
   end
 

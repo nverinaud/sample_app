@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   # Relationships
   has_many :microposts, dependent: :destroy
   has_many :follow_relationships, foreign_key: "follower_id", dependent: :destroy
+  has_many :followed_users, through: :follow_relationships, source: :followed
 
 
   # Callbacks
@@ -49,6 +50,20 @@ class User < ActiveRecord::Base
   # Feed
   def feed
     return Micropost.where("user_id = ?", id)
+  end
+
+
+  # Follow Feature
+  def following?(other_user)
+    return self.follow_relationships.find_by_followed_id(other_user.id)
+  end
+
+  def follow!(other_user)
+    self.follow_relationships.create!(followed_id: other_user.id)
+  end
+
+  def unfollow!(other_user)
+    self.follow_relationships.find_by_followed_id(other_user.id).destroy
   end
 
   # Remember Token

@@ -13,8 +13,14 @@ SampleApp::Application.routes.draw do
   match '/contact', to: 'static_pages#contact'
 
   # Resources
-  resources :users
+  resources :users do
+    member do # Allow URI like /users/1/followers to get the followers of user 1
+      get :followers, :following
+    end
+  end
+
   resources :sessions, only: [:new, :create, :destroy]
   resources :microposts, only: [:create, :destroy]
+  resources :follow_relationships, only: [:create, :destroy]
 
 end

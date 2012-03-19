@@ -12,5 +12,13 @@
 require 'spec_helper'
 
 describe FollowRelationship do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:follower) { FactoryGirl.create(:user) }
+  let(:followed) { FactoryGirl.create(:user) }
+  let(:relationship) do
+    follower.follow_relationships.build(followed_id: followed.id)
+  end
+
+  subject { relationship }
+
+  it { should be_valid }
 end

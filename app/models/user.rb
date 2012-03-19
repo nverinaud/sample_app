@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
 
   # Relationships
   has_many :microposts, dependent: :destroy
+  has_many :follow_relationships, foreign_key: "follower_id", dependent: :destroy
 
 
   # Callbacks

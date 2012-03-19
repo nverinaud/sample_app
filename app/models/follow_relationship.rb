@@ -16,5 +16,15 @@
 #
 
 class FollowRelationship < ActiveRecord::Base
+
+	# Accessible attributes
 	attr_accessible :followed_id
+
+	# Relationships
+	belongs_to :follower, class_name: "User"
+  	belongs_to :followed, class_name: "User"
+
+  	# Validation
+  	validates :follower_id, presence: true
+  	validates :followed_id, presence: true
 end
